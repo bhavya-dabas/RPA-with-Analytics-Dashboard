@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NOC Escalation Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial; margin: 30px;}
+        .block { display: inline-block; margin-right: 40px;}
+    </style>
+</head>
+<body>
+    <h1>Ticket Escalation Dashboard</h1>
+    <div>
+        <div class="block"><b>Open Tickets:</b> {{ stats['tickets_open'] }}</div>
+        <div class="block"><b>Today's Escalations:</b> {{ stats['escalations_today'] }}</div>
+        <div class="block"><b>SLA Breach Tickets:</b> {{ stats['sla_breach'] }}</div>
+    </div>
+    <br><br>
+    <canvas id="activityChart" width="400" height="120"></canvas>
+    <script>
+        var ctx = document.getElementById('activityChart').getContext('2d');
+        var activityChart = new Chart(ctx, {
+            type: 'bar',
+             {
+                labels: ['Open Tickets', 'Escalations Today', 'SLA Breach'],
+                datasets: [{
+                    label: 'NOC Metrics',
+                     [{{ stats['tickets_open'] }}, {{ stats['escalations_today'] }}, {{ stats['sla_breach'] }}],
+                    backgroundColor: ['#2196F3', '#4CAF50', '#f44336'],
+                }]
+            }
+        });
+    </script>
+    <h3>Recent Logs</h3>
+    <table border="1" cellpadding="6">
+        <tr>
+            <th>Timestamp</th>
+            <th>Ticket</th>
+            <th>Action</th>
+            <th>Result</th>
+            <th>Comment</th>
+        </tr>
+        {% for row in logs %}
+        <tr>
+            <td>{{ row['timestamp'] }}</td>
+            <td>{{ row['ticket_id'] }}</td>
+            <td>{{ row['action'] }}</td>
+            <td>{{ row['result'] }}</td>
+            <td>{{ row['comment'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,4 @@
+INSERT INTO tickets VALUES ('TICK1','Open', NOW(), FALSE, FALSE, NOW());
+INSERT INTO tickets VALUES ('TICK2','Open', NOW(), FALSE, TRUE, NOW());
+INSERT INTO tickets VALUES ('TICK3','Closed', NOW(), FALSE, FALSE, NOW());
+INSERT INTO tickets VALUES ('TICK4','Open', NOW(), FALSE, FALSE, NOW());
